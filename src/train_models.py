@@ -11,7 +11,7 @@ from sklearn.metrics import (accuracy_score, precision_score, recall_score,
                              f1_score, roc_auc_score, confusion_matrix, 
                              classification_report, roc_curve)
 from sklearn.model_selection import cross_val_score
-import pickle
+import joblib
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -250,8 +250,7 @@ class ChurnModelTrainer:
         best_model_name = max(self.results, key=lambda x: self.results[x]['roc_auc'])
         best_model = self.models[best_model_name]
         
-        with open('../models/best_model.pkl', 'wb') as f:
-            pickle.dump(best_model, f)
+        joblib.dump(best_model, '../models/best_model.pkl')
         
         print(f"\nBest model ({best_model_name}) saved to models/best_model.pkl")
         print(f"Best model ROC-AUC: {self.results[best_model_name]['roc_auc']:.4f}")
