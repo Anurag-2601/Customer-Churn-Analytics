@@ -80,9 +80,6 @@ The interactive dashboard includes:
 
 
 
-You are no longer competing with interns.
-You are positioned as a **junior data analyst ready for product teams**.
 
----
 
 
