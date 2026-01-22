@@ -21,6 +21,8 @@ The objectives of this project are to:
 ---
 
 ##  Repository Structure
+
+<pre>
 Customer-Churn-Risk-Retention-Analytics/
 ├── dashboard/
 │   └── Customer Churn Risk & Retention.pbix
@@ -35,6 +37,8 @@ Customer-Churn-Risk-Retention-Analytics/
 │   ├── 1.Data Cleaning.sql
 │   └── 2.EDA.sql
 └── README.md
+</pre>
+
 
 ---
 
