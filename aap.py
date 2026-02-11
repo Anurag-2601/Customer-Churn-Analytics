@@ -14,9 +14,9 @@ st.title("📊 Customer Churn Prediction System")
 @st.cache_resource
 @st.cache_resource
 def load_model():
-    model = joblib.load("pickle_files/churn_model.pkl")
-    scaler = joblib.load("pickle_files/scaler.pkl")
-    encoders = joblib.load("pickle_files/encoders.pkl")
+    model = joblib.load("pickle files/churn_model.pkl")
+    scaler = joblib.load("pickle files/scaler.pkl")
+    encoders = joblib.load("pickle files/encoders.pkl")
     return model, scaler, encoders
 
 
