@@ -51,13 +51,16 @@ input_df = pd.DataFrame([input_data])
 # -------------------------
 
 for col in encoders:
-    input_df[col] = encoders[col].transform(input_df[col])
+    # Reorder input columns correctly
+    input_df = input_df[feature_columns]
+
 
 # -------------------------
 # Scaling
 # -------------------------
 
 input_scaled = scaler.transform(input_df)
+
 
 # -------------------------
 # Prediction
