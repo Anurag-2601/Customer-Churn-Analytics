@@ -1,80 +1,77 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report
+import joblib
 
-st.set_page_config(page_title="Customer Churn Analytics", layout="wide")
+st.set_page_config(page_title="Customer Churn Dashboard", layout="wide")
 
-st.title("📊 Customer Churn Analytics App")
+st.title("📊 Customer Churn Prediction System")
 
-st.write("Upload your customer churn dataset (CSV format)")
+# -------------------------
+# Load Saved Artifacts
+# -------------------------
 
-uploaded_file = st.file_uploader("Upload CSV File", type=["csv"])
+@st.cache_resource
+@st.cache_resource
+def load_model():
+    model = joblib.load("pickle_files/churn_model.pkl")
+    scaler = joblib.load("pickle_files/scaler.pkl")
+    encoders = joblib.load("pickle_files/encoders.pkl")
+    return model, scaler, encoders
 
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    
-    st.subheader("Dataset Preview")
-    st.dataframe(df.head())
 
-    # ------------------------------
-    # Basic Preprocessing
-    # ------------------------------
+model, scaler, encoders = load_model()
 
-    df = df.dropna()
+st.sidebar.header("Enter Customer Details")
 
-    # Encode categorical columns
-    le = LabelEncoder()
-    for col in df.columns:
-        if df[col].dtype == "object":
-            df[col] = le.fit_transform(df[col])
+# -------------------------
+# Dynamic Input Fields
+# -------------------------
 
-    # Target column selection
-    target_column = st.selectbox("Select Target Column (Churn Column)", df.columns)
+input_data = {}
 
-    if target_column:
-        X = df.drop(columns=[target_column])
-        y = df[target_column]
+for feature in encoders.keys():
+    options = encoders[feature].classes_
+    input_data[feature] = st.sidebar.selectbox(feature, options)
 
-        scaler = StandardScaler()
-        X = scaler.fit_transform(X)
+# Numerical features (modify based on your dataset)
+tenure = st.sidebar.slider("tenure", 0, 72, 12)
+MonthlyCharges = st.sidebar.slider("MonthlyCharges", 0.0, 200.0, 70.0)
+TotalCharges = st.sidebar.slider("TotalCharges", 0.0, 10000.0, 2000.0)
 
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.2, random_state=42
-        )
+input_data["tenure"] = tenure
+input_data["MonthlyCharges"] = MonthlyCharges
+input_data["TotalCharges"] = TotalCharges
 
-        model = LogisticRegression(max_iter=1000)
-        model.fit(X_train, y_train)
+input_df = pd.DataFrame([input_data])
 
-        y_pred = model.predict(X_test)
+# -------------------------
+# Encoding
+# -------------------------
 
-        acc = accuracy_score(y_test, y_pred)
+for col in encoders:
+    input_df[col] = encoders[col].transform(input_df[col])
 
-        st.subheader("📈 Model Performance")
-        st.write(f"Accuracy: {acc:.2f}")
+# -------------------------
+# Scaling
+# -------------------------
 
-        st.text("Classification Report:")
-        st.text(classification_report(y_test, y_pred))
+input_scaled = scaler.transform(input_df)
 
-        # ------------------------------
-        # Prediction Section
-        # ------------------------------
-        st.subheader("🔮 Predict New Customer Churn")
+# -------------------------
+# Prediction
+# -------------------------
 
-        input_data = []
-        for col in df.drop(columns=[target_column]).columns:
-            value = st.number_input(f"Enter value for {col}")
-            input_data.append(value)
+if st.button("Predict Churn"):
 
-        if st.button("Predict"):
-            input_array = np.array(input_data).reshape(1, -1)
-            input_array = scaler.transform(input_array)
-            prediction = model.predict(input_array)
+    prediction = model.predict(input_scaled)[0]
+    probability = model.predict_proba(input_scaled)[0][1]
 
-            if prediction[0] == 1:
-                st.error("⚠️ Customer is likely to Churn")
-            else:
-                st.success("✅ Customer is Not Likely to Churn")
+    st.subheader("Prediction Result")
+
+    if prediction == 1:
+        st.error("⚠️ Customer is likely to CHURN")
+    else:
+        st.success("✅ Customer is likely to STAY")
+
+    st.write(f"Churn Probability: {round(probability * 100, 2)}%")
