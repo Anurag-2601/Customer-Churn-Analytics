@@ -51,8 +51,14 @@ input_df = pd.DataFrame([input_data])
 # -------------------------
 
 for col in encoders:
-    # Reorder input columns correctly
-    input_df = input_df[feature_columns]
+    input_df[col] = encoders[col].transform(input_df[col])
+
+# Debug check
+st.write("Feature Columns from Training:", feature_columns)
+st.write("Input Columns Provided:", input_df.columns.tolist())
+
+# Reorder correctly
+input_df = input_df.reindex(columns=feature_columns, fill_value=0)
 
 
 # -------------------------
