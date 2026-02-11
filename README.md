@@ -31,12 +31,18 @@ Customer-Churn-Risk-Retention-Analytics/
 ├── notebooks/
 │   ├── churn_analysis.ipynb
 │   └── Churn_ml_model.ipynb
+├── pickle files/
+│   ├── churn_model.pkl
+│   └── encoders.pkl
+|    └── scaler.pkl
 ├── report/
 │   └── Customer Churn Risk Report.pdf
 ├── sql/
 │   ├── 1.Data Cleaning.sql
 │   └── 2.EDA.sql
 └── README.md
+└── app.py
+└── requirements.txt
 </pre>
 
 
