@@ -17,10 +17,11 @@ def load_model():
     model = joblib.load("pickle files/churn_model.pkl")
     scaler = joblib.load("pickle files/scaler.pkl")
     encoders = joblib.load("pickle files/encoders.pkl")
-    return model, scaler, encoders
+    feature_columns = joblib.load("pickle_files/feature_columns.pkl")
+    return model, scaler, encoders, feature_columns
 
 
-model, scaler, encoders = load_model()
+model, scaler, encoders, feature_columns = load_model()
 
 st.sidebar.header("Enter Customer Details")
 
