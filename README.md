@@ -1,143 +1,215 @@
 #  Customer Churn Risk & Retention Analytics
 
-##  Overview
-Customer churn is a critical business problem for subscription-based and product-led companies.  
-This project focuses on **understanding why customers churn**, identifying **early risk signals**, and helping teams **prioritize retention actions and stakeholder decision-making** using business-driven data analytics.
-
-Instead of treating churn purely as a prediction problem, this project emphasizes **behavioral analysis, root cause identification, and actionable insights** that support **product, operations, and customer success teams**.
+##  Live Demo
+**Streamlit App:** https://customer-churn-analytics-deployement.streamlit.app/
 
 ---
 
-##  Problem Statement
-Telecom customers interact with services through usage behavior, subscription plans, and customer support.  
-Repeated service issues or pricing dissatisfaction often lead to churn, but these signals are not always visible without structured, end-to-end analysis.
+##  Project Overview
 
-The objectives of this project are to:
-- Identify key churn drivers using business metrics  
-- Segment customers based on churn risk  
-- Support proactive **retention strategy and customer lifecycle management**  
-- Enable **data-driven decision-making** for stakeholders  
+Customer churn is a major revenue risk for subscription-based businesses. This project analyzes customer behavior to identify churn drivers, segment high-risk customers, and provide actionable retention insights for business stakeholders.
+
+Instead of focusing only on prediction, this project emphasizes:
+
+- Root cause analysis of churn behavior
+- Business-driven risk segmentation
+- Customer lifecycle insights
+- Stakeholder decision support dashboards
+
+The project simulates how data analytics is used in real product organizations for operational decision-making.
+
+---
+
+##  Business Problem
+
+Telecom companies experience customer churn due to:
+
+- Service dissatisfaction
+- Pricing concerns
+- Poor customer experience
+- Repeated service issues
+
+However, churn signals are hidden within usage behavior and service interactions.
+
+### This project solves:
+
+- Identifying key churn drivers
+- Detecting early churn risk signals
+- Prioritizing customer retention actions
+- Supporting data-driven business decisions
+
+---
+
+##  Key Business Impact
+
+- Identified major churn drivers using customer behavior data  
+- Built risk segmentation framework for proactive retention  
+- Developed stakeholder-ready KPI dashboard  
+- Provided operational recommendations for customer success teams  
+- Implemented interpretable ML model to validate business insights  
 
 ---
 
 ##  Repository Structure
 
-<pre>
+<pre>  
 Customer-Churn-Risk-Retention-Analytics/
 ├── dashboard/
-│   └── Customer Churn Risk & Retention.pbix
+│ └── Customer Churn Risk & Retention.pbix
 ├── data/
-│   └── churn dataset.csv
+│ └── churn dataset.csv
 ├── notebooks/
-│   ├── churn_analysis.ipynb
-│   └── Churn_ml_model.ipynb
+│ ├── churn_analysis.ipynb
+│ └── Churn_ml_model.ipynb
 ├── pickle files/
-│   ├── churn_pipeline.pkl
-
+│ └── churn_pipeline.pkl
 ├── report/
-│   └── Customer Churn Risk Report.pdf
+│ └── Customer Churn Risk Report.pdf
 ├── sql/
-│   ├── 1.Data Cleaning.sql
-│   └── 2.EDA.sql
+│ ├── 1.Data Cleaning.sql
+│ └── 2.EDA.sql
+├── app.py
+├── requirements.txt
 └── README.md
-└── app.py
-└── requirements.txt
-</pre>
+<pre>
 
 
 ---
 
+##  Dataset Description
 
-##  Data Understanding
-The dataset contains customer-level data covering:
-- Usage patterns (day, evening, night, international minutes)
+The dataset contains customer-level telecom data including:
+
+- Usage behavior (day, evening, night, international minutes)
 - Service interaction history (customer service calls)
-- Plan information (international plan, voice mail plan)
-- Churn status (`True / False`)
+- Subscription plans (international plan, voicemail plan)
+- Customer churn status (`True / False`)
 
-Each row represents an individual customer within the customer lifecycle.
+Each record represents one customer lifecycle.
 
 ---
 
 ##  Data Cleaning & Validation
-Data preparation focused on **data quality and reliability** before analysis:
-- Removed duplicate records using assumption-based deduplication due to missing customer IDs  
-- Performed data quality checks and validation across all key columns  
-- Identified logical inconsistencies (e.g., international usage without an international plan)  
-- Reviewed extreme usage values to flag abnormal behavior  
 
-This ensured the analytics pipeline was built on **clean, trustworthy data**.
+To ensure reliable analysis:
 
----
+- Removed duplicate records using assumption-based deduplication
+- Performed data quality validation across key features
+- Identified logical inconsistencies (usage without subscription plan)
+- Detected extreme values and abnormal usage patterns
 
-##  Exploratory Analysis & Key Findings
-The exploratory analysis focused on **root cause analysis** rather than surface-level reporting.
-
-### Key Drivers Identified:
-- **Customer Service Calls:** Churn rate increases sharply with frequent service interactions, indicating service friction  
-- **International Plan Usage:** International plan users churn at a significantly higher rate, suggesting pricing or experience gaps  
-- **Usage Behavior:** Churned customers show equal or higher usage, indicating dissatisfaction rather than disengagement  
-
-These findings highlight actionable operational insights.
+This ensured trustworthy analytics results.
 
 ---
 
-##  Risk Segmentation Framework
-Customers were segmented based on service interaction intensity to support prioritization:
+##  Exploratory Data Analysis (EDA)
 
-- **High Risk – Immediate Intervention:** ≥ 4 customer service calls  
-- **Medium Risk – Monitor:** 2–3 customer service calls  
-- **Low Risk – Stable:** ≤ 1 customer service call  
+The analysis focused on identifying root causes of churn.
 
-This risk framework aligns with **real-world retention strategy planning** and enables teams to focus on **who to act on first**.
+###  Key Findings
+
+### 1️ Customer Service Calls → Strongest Churn Driver
+- Churn rate increases significantly with frequent support calls
+- Indicates customer dissatisfaction and service friction
+
+### 2️ International Plan Users → Higher Churn
+- Suggests pricing or experience issues
+- Requires business review of plan value
+
+### 3️ High Usage Customers Still Churn
+- Churn driven by dissatisfaction, not inactivity
+
+---
+
+##  Customer Risk Segmentation Framework
+
+Customers were segmented based on service interaction frequency:
+
+|    Risk Level   |      Criteria      |    Business Action     |
+|-----------------|--------------------|------------------------|
+| 🔴 High Risk   | ≥ 4 service calls  | Immediate intervention |
+| 🟡 Medium Risk |     2–3 calls      |    Monitor closely     |
+| 🟢 Low Risk    |     ≤ 1 call       |    Stable customers    |
+
+This framework helps organizations prioritize retention efforts efficiently.
 
 ---
 
 ##  Power BI Dashboard
-The analytical insights were translated into an **interactive Power BI dashboard** designed for stakeholder consumption.
 
-The dashboard supports:
-- KPI monitoring (Total Customers, Customers Churned, Churn Rate %)  
-- Churn analysis by service calls and plan type  
-- Risk-wise churn rate and customer distribution  
-- Usage comparison between churned and non-churned customers  
-- Filters for state, plan type, and churn status  
+An interactive dashboard was developed for stakeholder reporting.
 
-The dashboard is designed to support **data-driven decision-making and operational reviews**, not just static reporting.
+### Dashboard Features:
 
----
+- KPI monitoring (Total Customers, Churn Rate %)
+- Churn analysis by service calls
+- Plan-wise churn distribution
+- Customer risk segmentation view
+- Usage comparison (churn vs non-churn)
+- Interactive filters for business analysis
 
-##  Optional Machine Learning Extension
-A supplementary machine learning notebook explores churn prediction as part of the **end-to-end analytics pipeline**.
-
-- Implemented using Logistic Regression for interpretability  
-- Used to validate analytical insights rather than replace them  
-- Predictive signals aligned with key churn drivers:
-  - Customer service calls
-  - International plan usage
-  - Usage intensity  
-
-Machine learning is included as a **supporting analytical layer**, not a standalone solution.
+The dashboard supports operational decision-making rather than static reporting.
 
 ---
 
-##  Business Insights & Recommendations
-- Prioritize proactive retention for customers with frequent service calls  
-- Review pricing and service experience for international plan users  
-- Monitor medium-risk customers early to prevent escalation into high-risk churn  
-- Use risk segmentation to allocate retention efforts efficiently  
+##  Machine Learning (Supporting Layer)
+
+A Logistic Regression model was implemented to validate analytical insights.
+
+### Model Purpose:
+- Interpret churn drivers
+- Support business analysis
+- Provide predictive risk signals
+
+### Key Predictors:
+- Customer service calls
+- International plan usage
+- Usage intensity
+
+Machine learning complements business analytics rather than replacing it.
+
+---
+
+##  Business Recommendations
+
+- Proactively retain customers with frequent service interactions
+- Improve pricing strategy for international plan users
+- Monitor medium-risk customers early
+- Allocate retention resources based on risk segmentation
 
 ---
 
 ##  Tools & Technologies
-- **SQL:** Data cleaning, validation, EDA, business metrics  
-- **Power BI:** KPI design, interactive dashboards, stakeholder reporting  
-- **Python:** Exploratory analysis and supplementary churn modeling  
+
+- **SQL** → Data cleaning, validation, EDA
+- **Python** → Data analysis, ML modeling
+- **Power BI** → KPI dashboard and reporting
+- **Streamlit** → Model deployment
+- **Pandas, Scikit-learn** → Data processing & modeling
 
 ---
 
-##  Conclusion
-This project demonstrates an **analytics-first, business-focused approach** to customer churn.  
-By combining clean data, structured analysis, and stakeholder-ready visualization, it supports **operational decision-making and retention strategy execution**.
+##  Deployment
 
-The project reflects how analytics is applied in **real product environments**, not just academic settings.
+The project is deployed using Streamlit for interactive prediction and analysis.
+
+ **Try the live application:**  
+https://customer-churn-analytics-deployement.streamlit.app/
+
+---
+
+##  What This Project Demonstrates
+
+- End-to-end data analytics pipeline
+- Business problem solving using data
+- SQL + Python + BI integration
+- Stakeholder-focused insights
+- Production-style deployment
+- Real-world analytics workflow
+
+---
+
+##  Author
+
+**Pallela Anurag**  
+Aspiring Data Analyst | SQL • Python • Power BI • Machine Learning
