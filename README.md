@@ -32,10 +32,8 @@ Customer-Churn-Risk-Retention-Analytics/
 │   ├── churn_analysis.ipynb
 │   └── Churn_ml_model.ipynb
 ├── pickle files/
-│   ├── churn_model.pkl
-│   └── encoders.pkl
-|   └── scaler.pkl
-│   └── feature_columns.pkl
+│   ├── churn_pipeline.pkl
+
 ├── report/
 │   └── Customer Churn Risk Report.pdf
 ├── sql/
