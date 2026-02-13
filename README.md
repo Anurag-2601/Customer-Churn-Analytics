@@ -67,9 +67,10 @@ However, churn signals are hidden within usage behavior and service interactions
   - **sql/**
     - 1.Data Cleaning.sql
     - 2.EDA.sql
+  - README.md
   - app.py
   - requirements.txt
-  - README.md
+  
 
 
 
