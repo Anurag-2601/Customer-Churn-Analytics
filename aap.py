@@ -56,8 +56,7 @@ st.write(input_df.columns.tolist())
 
 st.stop()
 
-
-    if prediction == 1:
-        st.error("⚠️ Customer is likely to CHURN")
-    else:
-        st.success("✅ Customer is likely to STAY")
+if prediction == 1:
+    st.error("⚠️ Customer is likely to CHURN")
+else:
+    st.success("✅ Customer is likely to STAY")
