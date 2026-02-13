@@ -17,6 +17,8 @@ model = load_model()
 
 st.sidebar.header("Enter Customer Details")
 
+st.write("Model expects columns:", model.feature_names_in_)
+
 # -------------------------
 # User Input (edit fields to match dataset)
 # -------------------------
