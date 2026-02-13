@@ -50,7 +50,7 @@ However, churn signals are hidden within usage behavior and service interactions
 
 ---
 
-## 📂 Repository Structure
+##  Repository Structure
 
 - **Customer-Churn-Risk-Retention-Analytics/**
   - **dashboard/**
