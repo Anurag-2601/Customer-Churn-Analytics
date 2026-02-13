@@ -50,33 +50,31 @@ However, churn signals are hidden within usage behavior and service interactions
 
 ---
 
-##  Repository Structure
+## 📂 Repository Structure
 
-<pre>  
-Customer-Churn-Risk-Retention-Analytics/
-├── dashboard/
-│ └── Customer Churn Risk & Retention.pbix
-├── data/
-│ └── churn dataset.csv
-├── notebooks/
-│ ├── churn_analysis.ipynb
-│ └── Churn_ml_model.ipynb
-├── pickle files/
-│ └── churn_pipeline.pkl
-├── report/
-│ └── Customer Churn Risk Report.pdf
-├── sql/
-│ ├── 1.Data Cleaning.sql
-│ └── 2.EDA.sql
-├── app.py
-├── requirements.txt
-└── README.md
-<pre>
+- **Customer-Churn-Risk-Retention-Analytics/**
+  - **dashboard/**
+    - Customer Churn Risk & Retention.pbix
+  - **data/**
+    - churn dataset.csv
+  - **notebooks/**
+    - churn_analysis.ipynb
+    - Churn_ml_model.ipynb
+  - **pickle files/**
+    - churn_pipeline.pkl
+  - **report/**
+    - Customer Churn Risk Report.pdf
+  - **sql/**
+    - 1.Data Cleaning.sql
+    - 2.EDA.sql
+  - app.py
+  - requirements.txt
+  - README.md
+
 
 
 ---
-
-##  Dataset Description
+## Dataset Description
 
 The dataset contains customer-level telecom data including:
 
