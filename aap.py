@@ -48,11 +48,14 @@ input_df = pd.DataFrame([input_data])
 # Prediction
 # -------------------------
 
-if st.button("Predict Churn"):
+st.write("Model expects these columns:")
+st.write(model.feature_names_in_)
 
-    prediction = model.predict(input_df)[0]
+st.write("Your input columns:")
+st.write(input_df.columns.tolist())
 
-    st.subheader("Prediction Result")
+st.stop()
+
 
     if prediction == 1:
         st.error("⚠️ Customer is likely to CHURN")
