@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import joblib
 
 st.set_page_config(page_title="Customer Churn Dashboard", layout="wide")
@@ -8,65 +7,40 @@ st.set_page_config(page_title="Customer Churn Dashboard", layout="wide")
 st.title("📊 Customer Churn Prediction System")
 
 # -------------------------
-# Load Saved Artifacts
+# Load Pipeline
 # -------------------------
-
-@st.cache_resource
 @st.cache_resource
 def load_model():
-    model = joblib.load("pickle files/churn_model.pkl")
-    scaler = joblib.load("pickle files/scaler.pkl")
-    encoders = joblib.load("pickle files/encoders.pkl")
-    feature_columns = joblib.load("pickle files/feature_columns.pkl")
-    return model, scaler, encoders, feature_columns
+    return joblib.load("pickle files/churn_pipeline.pkl")
 
-
-model, scaler, encoders, feature_columns = load_model()
+model = load_model()
 
 st.sidebar.header("Enter Customer Details")
 
 # -------------------------
-# Dynamic Input Fields
+# User Input (edit fields to match dataset)
 # -------------------------
 
-input_data = {}
+gender = st.sidebar.selectbox("gender", ["Male", "Female"])
+SeniorCitizen = st.sidebar.selectbox("SeniorCitizen", [0, 1])
+Partner = st.sidebar.selectbox("Partner", ["Yes", "No"])
+Dependents = st.sidebar.selectbox("Dependents", ["Yes", "No"])
 
-for feature in encoders.keys():
-    options = encoders[feature].classes_
-    input_data[feature] = st.sidebar.selectbox(feature, options)
-
-# Numerical features (modify based on your dataset)
 tenure = st.sidebar.slider("tenure", 0, 72, 12)
 MonthlyCharges = st.sidebar.slider("MonthlyCharges", 0.0, 200.0, 70.0)
 TotalCharges = st.sidebar.slider("TotalCharges", 0.0, 10000.0, 2000.0)
 
-input_data["tenure"] = tenure
-input_data["MonthlyCharges"] = MonthlyCharges
-input_data["TotalCharges"] = TotalCharges
+input_data = {
+    "gender": gender,
+    "SeniorCitizen": SeniorCitizen,
+    "Partner": Partner,
+    "Dependents": Dependents,
+    "tenure": tenure,
+    "MonthlyCharges": MonthlyCharges,
+    "TotalCharges": TotalCharges
+}
 
 input_df = pd.DataFrame([input_data])
-
-# -------------------------
-# Encoding
-# -------------------------
-
-for col in encoders:
-    input_df[col] = encoders[col].transform(input_df[col])
-
-# Debug check
-st.write("Feature Columns from Training:", feature_columns)
-st.write("Input Columns Provided:", input_df.columns.tolist())
-
-# Reorder correctly
-input_df = input_df.reindex(columns=feature_columns, fill_value=0)
-
-
-# -------------------------
-# Scaling
-# -------------------------
-
-input_scaled = scaler.transform(input_df)
-
 
 # -------------------------
 # Prediction
@@ -74,8 +48,7 @@ input_scaled = scaler.transform(input_df)
 
 if st.button("Predict Churn"):
 
-    prediction = model.predict(input_scaled)[0]
-    probability = model.predict_proba(input_scaled)[0][1]
+    prediction = model.predict(input_df)[0]
 
     st.subheader("Prediction Result")
 
@@ -83,5 +56,3 @@ if st.button("Predict Churn"):
         st.error("⚠️ Customer is likely to CHURN")
     else:
         st.success("✅ Customer is likely to STAY")
-
-    st.write(f"Churn Probability: {round(probability * 100, 2)}%")
